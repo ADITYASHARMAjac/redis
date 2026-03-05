@@ -12,6 +12,17 @@ const app = express();
 // the data sent in the body of POST requests, which is common in API interactions.
 app.use(express.json());
 
+// Root health-check route so the deployed URL shows a response instead of a blank page.
+app.get('/', (req, res) => {
+    res.json({
+        status: 'ok',
+        message: '🚀 Redis Locking Mechanism API is running',
+        endpoints: {
+            bookSeat: 'POST /api/book/:seatId'
+        }
+    });
+});
+
 // Use the booking routes defined in the booking.route.js file. By mounting the bookingRoutes under the '/api' path,
 // all routes defined in bookingRoutes will be prefixed with '/api'. For example, if bookingRoutes defines a route 
 // for '/book/:seatId', it will be accessible at '/api/book/:seatId'. This helps to organize the API endpoints and 
